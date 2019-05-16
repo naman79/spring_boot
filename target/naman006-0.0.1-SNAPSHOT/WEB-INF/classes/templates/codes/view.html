@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout1}">
+
+<div layout:fragment="content">
+
+	<div class="panel-heading">View Page</div>
+	<div class="panel-body">
+
+
+		<div class="form-group">
+			<label>CODENO</label> <input class="form-control" name="codeno"
+				th:value="${vo.codeno}" readonly="readonly" />
+		</div>
+
+		<div class="form-group">
+			<label>CODE1</label> <input class="form-control" name="code1"
+				th:value="${vo.code1}" readonly="readonly" />
+		</div>
+
+		<div class="form-group">
+			<label>CODE2</label>
+			<input class="form-control" name="code2"
+				th:value="${vo.code2}" readonly="readonly" />
+		</div>
+
+		<div class="form-group">
+			<label>NAME</label> <input class="form-control" name="name"
+				th:value="${vo.name}" readonly="readonly" />
+		</div>
+
+		<div class="form-group">
+			<label>DESCRIPT</label> <input class="form-control" name="descript"
+				th:value="${vo.descript}" readonly="readonly" />
+		</div>
+
+		<div class="form-group">
+			<label>CreateDate</label> <input class="form-control" name="createDate"
+				th:value="${#dates.format(vo.createdate,'yyyy-MM-dd')}"
+				readonly="readonly" />
+		</div>
+
+		<div class="pull-right">
+			<a th:href="@{ modify(page=${pageVO.page}, 
+			                size=${pageVO.size}, 
+			                type=${pageVO.type}, 
+			                keyword=${pageVO.keyword},
+			                codeno =${vo.codeno}
+			             )}" class="btn btn-default">Modify/Delete</a> 
+			             
+			<a th:href="@{ list(page=${pageVO.page}, 
+			                size=${pageVO.size}, 
+			                type=${pageVO.type}, 
+			                keyword=${pageVO.keyword},
+			                codeno = ${vo.codeno}
+			             )}" class="btn btn-primary">Go List</a> 
+		</div>
+
+	</div>
+
+</div>
+<!--  end fragment -->
+
+<th:block layout:fragment="script">
+
+	<script th:inline="javascript">
+		
+	</script>
+
+</th:block>

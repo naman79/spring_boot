@@ -1,0 +1,78 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout1}">
+
+<div layout:fragment="content">
+
+	<div class="panel-heading">Register Page</div>
+	<div class="panel-body">
+
+		<form th:action="@{register}" method="post">
+
+			<div class="form-group">
+				<label>Code1</label> <input  id="code1_input" class="form-control" name="code1"
+					th:value="${vo.code1}" />
+			</div>
+
+			<div class="form-group">
+				<label>Code2</label>
+				 <input id="code2_input" class="form-control" name="code2"
+					th:value="${vo.code2}" onfocus="getMaxCodeValue()" />
+			</div>
+
+			<div class="form-group">
+				<label>Name</label> <input class="form-control" name="name"
+					th:value="${vo.name}" />
+			</div>
+			
+			<div class="form-group">
+				<label>Descript</label> <input class="form-control" name="descript"
+					th:value="${vo.descript}" />
+			</div>
+			<button type="submit" class="btn btn-default">Submit Button</button>
+			<button type="reset" class="btn btn-primary">Reset Button</button>
+			
+			<a href="/codes/list" class="btn btn-primary">Go List</a> 
+			
+		</form>
+
+	</div>
+
+</div>
+<!--  end fragment -->
+
+<th:block layout:fragment="script">
+
+	<script th:inline="javascript">
+		
+	function getMaxCodeValue() {
+		
+		var code1 = document.getElementById('code1_input').value;
+		console.log(code1);	
+			
+		$.ajax({
+			type:'get',
+			url: '/codes/getCode',
+			dataType:'json',
+			data: {'code1':code1},
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				
+				var code2 = data.code2*1 + 1;
+				
+				if(code2 < 10) {
+					code2 = '00' + code2
+				} else if (code2 < 100 && code2 > 9){
+					code2 = '0' + code2
+				}
+				
+				document.getElementById('code2_input').value = code2;
+			}
+		})
+		
+		}
+	
+	</script>
+
+</th:block>
